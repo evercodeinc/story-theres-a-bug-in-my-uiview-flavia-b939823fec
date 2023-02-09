@@ -74,10 +74,14 @@ private extension ListView {
 extension ListView {
 
     func updateView(with repositories: [String]) {
-
         self.listItems = repositories
         self.tableView.reloadData()
     }
+    
+    func startLoading() {
+        loadingView.startLoadingAnimation()
+    }
+
 }
 
 extension ListView: UITableViewDataSource {
