@@ -9,6 +9,16 @@ final class LoadingView: UIView {
         return view
     }()
     
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Loading..."
+        label.font = .systemFont(ofSize: 21, weight: .semibold)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     init() {
         super.init(frame: .zero)
         
@@ -23,16 +33,28 @@ final class LoadingView: UIView {
     }
     
     func addSubviews() {
-        
         addSubview(activityIndicatorView)
+        addSubview(descriptionLabel)
     }
     
     func configureConstraints() {
+        NSLayoutConstraint.activate([
+            descriptionLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            descriptionLabel.bottomAnchor.constraint(equalTo: activityIndicatorView.topAnchor, constant: -16)
+        ])
         
         NSLayoutConstraint.activate([
-        
             activityIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             activityIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
+        
+    }
+    
+    func startLoadingAnimation() {
+        activityIndicatorView.startAnimating()
+    }
+    
+    func stopLoadingAnimation() {
+        activityIndicatorView.stopAnimating()
     }
 }
